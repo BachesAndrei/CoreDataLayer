@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DeviceMO" representedClassName="DeviceMO" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String"/>
+        <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="UserMO" representedClassName="UserMO" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="devices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DeviceMO"/>
+        <relationship name="favoriteDevice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DeviceMO"/>
+    </entity>
+    <elements>
+        <element name="DeviceMO" positionX="-45" positionY="27" width="128" height="73"/>
+        <element name="UserMO" positionX="-63" positionY="-18" width="128" height="103"/>
+    </elements>
+</model>
