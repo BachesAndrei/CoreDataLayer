@@ -1,5 +1,5 @@
 //
-//  CoreDataStack.swift
+//  CoreDataStore.swift
 //  CoreData Layer
 //
 //  Created by Andrei Baches on 11/01/2021.

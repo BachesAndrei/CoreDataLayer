@@ -16,6 +16,8 @@ struct Device: Decodable {
         self.type = type
     }
     
+    
+    //Used to convert from a CoreData ManagedObject to a domain model
     init?(mo: DeviceMO?) {
         guard let mo = mo else {
             return nil

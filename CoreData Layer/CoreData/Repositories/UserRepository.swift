@@ -18,7 +18,7 @@ class UserRepository: CoreDataRepository<UserMO> {
         super.init(managedObjectContext: context)
     }
     
-    
+    /// Get all user objects saved on the persistence layer
     func getAllUsers() -> Result<[User]?, Error> {
         let result = self.get(predicate: nil, sortDescriptors: nil)
         switch result {
@@ -33,6 +33,9 @@ class UserRepository: CoreDataRepository<UserMO> {
         }
     }
     
+    
+    /// Get the user object with the specified UUID from the persistence layer
+    /// - Parameter userId: The UUID to be searched
     func getUser(for userId: UUID) -> Result<User?, Error> {
         let predicate = NSPredicate(format: "id == %@", userId as CVarArg)
         
@@ -49,6 +52,9 @@ class UserRepository: CoreDataRepository<UserMO> {
         }
     }
     
+    
+    /// Adds a new user object to the persistence layer
+    /// - Parameter user: User object to be added
     @discardableResult func add(user: User?) -> Result<Bool, CoreDataError> {
         guard let mo = self.create() else {
             return .failure(CoreDataError.invalidManagedObjectType)

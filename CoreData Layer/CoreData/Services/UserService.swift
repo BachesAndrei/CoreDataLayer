@@ -8,6 +8,8 @@
 import Foundation
 import CoreData
 
+
+//Protocol to expose open methods. Can be used to create a different custom UserService in case of UnitTesting
 protocol UserServiceProtocol {
     func getUsers() -> [User]
     func getUser(userId: UUID) -> User?
@@ -18,20 +20,24 @@ protocol UserServiceProtocol {
 
 struct UserService: UserServiceProtocol {
 
-    private let coreDataStack: CoreDataStack
+    ///CoreDataStore objected needed to provide
+    private let coreDataStore: CoreDataStore
+    
+    ///The NSManagedObjectContext instance to be used for performing all the changes
     private let context: NSManagedObjectContext
+    
     let repository: UserRepository
     
-    init(coreDataStack: CoreDataStack) {
-        self.context = coreDataStack.getPrivateContext()
+    init(coreDataStore: CoreDataStore) {
+        self.coreDataStore = coreDataStore
+        self.context = coreDataStore.getPrivateContext()
         self.repository = UserRepository(context: context)
-        self.coreDataStack = coreDataStack
     }
 
     func clear(completionHandler: @escaping ((Result<Bool, Error>) -> Void)) {
         repository.clear()
         
-        coreDataStack.saveContext(context: context) { saveResult in
+        coreDataStore.saveContext(context: context) { saveResult in
             
             if saveResult != nil {
                 completionHandler(.failure(CoreDataError.contextSaveFailed))
@@ -62,7 +68,7 @@ struct UserService: UserServiceProtocol {
         
         switch insertionResult {
             case .success(_):
-                coreDataStack.saveContext(context: context) { saveResult in
+                coreDataStore.saveContext(context: context) { saveResult in
                     
                     if saveResult != nil {
                         completionHandler(.failure(CoreDataError.contextSaveFailed))
@@ -87,7 +93,7 @@ struct UserService: UserServiceProtocol {
             }
         }
         
-        coreDataStack.saveContext(context: context) { saveResult in
+        coreDataStore.saveContext(context: context) { saveResult in
             
             if saveResult != nil {
                 completionHandler(.failure(CoreDataError.contextSaveFailed))

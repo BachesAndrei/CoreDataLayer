@@ -9,12 +9,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
+    let userService = UserService(coreDataStore: CoreDataStore.sharedInstance)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        let userService = UserService(coreDataStack: CoreDataStack.sharedInstance)
-        
+
+        print(userService.getUsers())
+    }
+
+
+    func testSaveUsers() {
         let laptopDevice = Device(name: "test laptop", type: .laptop)
         let phoneDevice = Device(name: "test phone", type: .phone)
         
@@ -23,25 +28,16 @@ class ViewController: UIViewController {
         let user = User(id: UUID(), name: "no device user", favoriteDevice: nil, devices: [])
         
         
-//        print(userService.getUsers())
-//
-//        userService.clear() {_ in
-//            print(userService.getUsers())
-//        }
-//
-//        DispatchQueue.main.async {
-//            userService.saveUser(user: phoneUser) { _ in
-//                print(userService.getUsers())
-//            }
-//        }
-
-//        print(userService.getUsers())
-        
-//        userService.saveUsers(users: [phoneUser, laptopUser]) { _ in
-//            print(userService.getUsers())
-//        }
+        userService.saveUser(user: phoneUser) { _ in
+            print(self.userService.getUsers())
+        }
     }
-
-
+    
+    func testRemoveUsers() {
+        userService.clear() {_ in
+            print(self.userService.getUsers())
+        }
+    }
+    
 }
 

@@ -17,6 +17,8 @@ class DeviceRepository {
         self.repository = CoreDataRepository<DeviceMO>(managedObjectContext: context)
     }
     
+    /// Adds a new device object to the persistence layer
+    /// - Parameter user: Device object to be added
     @discardableResult func add(device: Device?) -> DeviceMO? {
         guard let device = device else {
             return nil

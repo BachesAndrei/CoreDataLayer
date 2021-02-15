@@ -20,6 +20,7 @@ struct User: Decodable {
         self.devices = devices
     }
     
+    //Used to convert from a CoreData ManagedObject to a domain model
     init(mo: UserMO) {
         
         //id and name can`t be null because these fields are not optionals in xcdatamodel
