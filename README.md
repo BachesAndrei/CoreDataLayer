@@ -1,7 +1,7 @@
 # CoreDataLayer
 
 
-Abstraction layer between the business layer and the storage layer using CoreData, based on the Repository pattern, presented within a demo application.
+Abstraction layer between the business layer and the storage layer using CoreData, based on the Repository and Unit of Work patterns, presented within a demo application.
 
 This implementation is structured in the following layers:
     
